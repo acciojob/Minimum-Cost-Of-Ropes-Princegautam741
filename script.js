@@ -5,13 +5,20 @@ function calculateMinCost() {
   // Parse the input into an array of rope lengths
   const ropeLengths = ropeLengthsInput.split(',').map(length => parseInt(length));
 
-  // Sort the rope lengths in ascending order
-  ropeLengths.sort((a, b) => a - b);
+  // Check if there's only one rope
+  if (ropeLengths.length < 2) {
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = 'Minimum cost of ropes: 0';
+    return;
+  }
 
   let totalCost = 0;
 
   // Iterate through the sorted rope lengths and calculate the minimum cost
   while (ropeLengths.length > 1) {
+    // Sort the rope lengths in ascending order
+    ropeLengths.sort((a, b) => a - b);
+
     // Combine the two smallest ropes
     const combinedLength = ropeLengths[0] + ropeLengths[1];
 
@@ -20,9 +27,6 @@ function calculateMinCost() {
 
     // Remove the two smallest ropes and add the combined rope
     ropeLengths.splice(0, 2, combinedLength);
-
-    // Re-sort the rope lengths
-    ropeLengths.sort((a, b) => a - b);
   }
 
   // Display the minimum cost in the result div
